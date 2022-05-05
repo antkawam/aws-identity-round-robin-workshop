@@ -116,7 +116,7 @@ The policy definition will be similar to the image below.
 
     ![SecAdministratorRolePolicy](./images/IamEssSecAdminPolicy.png)
 
-    You may need to click **Show more** to see all of the policies.  There are six managed policies attached to this role, five of them are provided by AWS for GuardDuty, Inspector, CloudTrail, IAM, and SNS.  While you will not be working directly with SNS and IAM, the policies for SNS and IAM are included because including them provides for a better console experience.  There is a sixth managed policy that was created for Amazon Macie to illustrate how custom managed policies can be developed. Edit this policy so it says `macie2:*`. Click on each of the managed policies to see the underlying privileges of each.  Note that there are some services, such as Amazon EFS (Elastic File System), that are not granted by any of these policies.  You will confirm this lack of access later in this workshop.
+    You may need to click **Show more** to see all of the policies.  There are six managed policies attached to this role, five of them are provided by AWS for GuardDuty, Inspector, CloudTrail, IAM, and SNS.  While you will not be working directly with SNS and IAM, the policies for SNS and IAM are included because including them provides for a better console experience.  There is a sixth managed policy that was created for Amazon Macie to illustrate how custom managed policies can be developed. Click on each of the managed policies to see the underlying privileges of each.  Note that there are some services, such as Amazon EFS (Elastic File System), that are not granted by any of these policies.  You will confirm this lack of access later in this workshop.
 
 2. From the main page of the role, click the **Trust relationships** tab.  You will see a section on the page telling you that the trusted entity (the entity that can assume the role) is the 12-digit AWS account ID as shown below.  This means that any principal in the account can assume the role.
 
@@ -159,11 +159,15 @@ You can also select a color that will be used to display the role you assume in 
 
     This means that your *effective* privileges have been *temporarily* replaced with those of the SecAdministrator role.
 
-3.  Go to the Amazon EFS console.  Notice that you get a message telling you that you do not have access to any of the features of the console.  This is because none of the underlying policies grant any access to any part of Amazon EFS.
+3.  Go to the Amazon EFS console and click on "File systems" from the left menu.  Notice that you get a message telling you that you do not have access to any of the features of the console.  This is because none of the underlying policies grant any access to any part of Amazon EFS.
 
     ![EFSConsole](./images/IamEssEFSConsole.png)
 
-4. Now go to the Amazon Inspector Console.  To verify that you have administrative capabilities for Inspector, you are going to clone an existing template.  Click **Assessment Templates** and check the box to the left of the template name that begins with *LampInspectorAssessmentTemplate* and click **Clone**.  A section of the form will appear.  Scroll down towards the bottom and click the **Create** button.   Refresh the screen.  You should now see two templates that begin with *LampInspectorAssessment*.  If you widen the Name column you will see that the newly created template contains the string "Cloned."  You have just successfully cloned an assessment template which shows that you have administrative access privileges for Inspector.
+4. Now go to the Amazon Inspector Console.  To verify that you have administrative capabilities for Inspector, you are going to clone an existing template. Inspector v2 is now available, but this workshop uses Classic. Switch to use Inspector Classic
+
+    ![InspectorClassic](./images/InspectorClassic.png)
+
+Click **Assessment Templates** and check the box to the left of the template name that begins with *LampInspectorAssessmentTemplate* and click **Clone**.  A section of the form will appear.  Scroll down towards the bottom and click the **Create** button.   Refresh the screen.  You should now see two templates that begin with *LampInspectorAssessment*.  If you widen the Name column you will see that the newly created template contains the string "Cloned."  You have just successfully cloned an assessment template which shows that you have administrative access privileges for Inspector.
 
 5. Now go to the GuardDuty console and select the Settings menu item.  To verify that you do have administrative capabilities for GuardDuty, scroll down to the field named *Findings export options* and change the *Frequency for updated findings* value to **Update CWE and S3 every 1 hour** and click **Save**.
 You will see a message at the top of your window (you may need to scroll up) saying that the settings have been saved. This shows you do have full access to *GuardDuty*.
@@ -177,9 +181,9 @@ You will see a message at the top of your window (you may need to scroll up) say
 9. Click the **Stop logging** button on the top right and select **Stop logging** in the pop up window. Now toggle logging back on by clicking **Start logging** on the top right. This shows that you have administrative access to CloudTrail.
 
 10.  Now that you have confirmed that you have administrative access to Inspector, Macie, GuardDuty, and CloudTrail, you no longer need your temporary permissions.
-Click on the SecAdministrator label and select **Back to** on the bottom right of the menu as shown below.  Also note that the console maintains a role history to make it easier for you to switch back to the SecAdministrator role later.
+Click on the SecAdministrator label and select **Switch back** as shown below.  Also note that the console maintains a role history to make it easier for you to switch back to the SecAdministrator role later.
 
-    ![SwitchBacktoAdmin](./images/IamSwitchFromSecAdmin.png)
+    ![SwitchBacktoAdmin](./images/SwitchBack.png)
 
     After you switch back to your regular role the special role label for SecAdministrator is no longer displayed.
 
@@ -191,7 +195,7 @@ Now that you know how to switch to the Security Administrator role, you are goin
 Click on the resulting role that you see.
 The role will have permissions similar to those shown in the picture below.
 
-    ![SecOperPolicy](./images/IamEssSecOperPolicy.png)
+    ![SecOperPolicy](./images/RemoveFullAccess.png)
 
 2. Notice that there are once again managed policies, five AWS-managed policies for Inspector, GuardDuty, CloudTrail, IAM, and SNS, and a custom managed policy for Macie.
 The managed policies for Inspector, GuardDuty, and CloudTrail still provide full access to the services.
@@ -231,7 +235,7 @@ You can also select a color that will be used to display the role you assume in 
 
     Click **Switch Role**.
 
-    You will now see a new role label named *SecAdministrator* in the top of your console window as shown below.
+    You will now see a new role label named *SecOperator* in the top of your console window as shown below.
 
     ![SecOperatorLabel](./images/IamEssSwitchSecOperRolePost.png)
 
